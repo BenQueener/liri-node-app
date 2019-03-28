@@ -35,20 +35,26 @@ var spotify = new Spotify(keys.spotify);
 // Step Four: On the next screen, scroll down to where you see your client id and client secret. Copy these values down somewhere, you'll need them to use the Spotify API and the node-spotify-api package.
 
 //movie-this
-// node liri.js movie-this '<movie name here>'
-// This will output the following information to your terminal/bash window:
-//   * Title of the movie.
-//   * Year the movie came out.
-//   * IMDB Rating of the movie.
-//   * Rotten Tomatoes Rating of the movie.
-//   * Country where the movie was produced.
-//   * Language of the movie.
-//   * Plot of the movie.
-//   * Actors in the movie.
-// If the user doesn't type a movie in, the program will output data for the movie 'Mr. Nobody.'
-// If you haven't watched "Mr. Nobody," then you should: http://www.imdb.com/title/tt0485947/
-// It's on Netflix!
-// You'll use the axios package to retrieve data from the OMDB API. Like all of the in-class activities, the OMDB API requires an API key. You may use trilogy.
+function movieThis(movieName) {
+
+    if (movieName === undefined) {
+        movieName = "Mr. Nobody";
+    } 
+  
+    var queryUrl = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy";
+    console.log(queryUrl);
+
+    axios.get(queryUrl).then(
+        function(response) {
+            console.log("Title: " + response.data.Title);
+            console.log("Release Year: " + response.data.Year);
+            console.log("IMDB Rating: " + response.data.imdbRating);
+            console.log("Rotten Tomatoes Rating: " + response.data.Ratings[1].Value);
+            console.log("Country Produced: " + response.data.Country);
+            console.log("Language: " + response.data.Language);
+            console.log("Plot: " + response.data.Plot);
+            console.log("Actors/Actresses: " + response.data.Actors);
+        });
 
 //do-what-it-says
 // node liri.js do-what-it-says
@@ -58,12 +64,23 @@ var spotify = new Spotify(keys.spotify);
 
 // choose what function
 var choose = process.argv[2];
+var query = process.argv[3];
 
 //if statements to choose the funtion
 if (choose === "concert-this"){
-    concertThis(query) 
+    concertThis(query); 
 }
 else if (choose === "spotify-this-song"){
+    spotifyThisSong(query);
+}
+else if (choose === "movies-this"){
+    movieThis(query);
+}
+else if (choose === "do-what-it-says"){
+    doWhatItSays(query);
+}
+
+
 
 
 
