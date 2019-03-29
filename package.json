@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/BenQueener/liri-node-app/issues"
   },
-  "homepage": "https://github.com/BenQueener/liri-node-app#readme"
+  "homepage": "https://github.com/BenQueener/liri-node-app#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^7.0.0",
+    "fs": "0.0.1-security",
+    "node-spotify-api": "^1.0.7"
+  }
 }
