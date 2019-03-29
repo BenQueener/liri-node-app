@@ -64,35 +64,40 @@ function movieThis(movieName) {
             console.log("Language: " + response.data.Language);
             console.log("Plot: " + response.data.Plot);
             console.log("Actors/Actresses: " + response.data.Actors);
-        });
+        }
+    );
+}
 
 //do-what-it-says
-// node liri.js do-what-it-says
-// Using the fs Node package, LIRI will take the text inside of random.txt and then use it to call one of LIRI's commands.
-// It should run spotify-this-song for "I Want it That Way," as follows the text in random.txt.
-// Edit the text in random.txt to test out the feature for movie-this and concert-this.
-
-// choose what function
-var choose = process.argv[2];
-var query = process.argv[3];
-
-//if statements to choose the funtion
-if (choose === "concert-this"){
-    concertThis(query); 
-}
-else if (choose === "spotify-this-song"){
-    spotifyThisSong(query);
-}
-else if (choose === "movies-this"){
-    movieThis(query);
-}
-else if (choose === "do-what-it-says"){
-    doWhatItSays(query);
+function doWhatItSays(){
+    fs.readFile('random.txt', "utf8", function(error, data){
+        var text = data.split(',');
+        somethingThis( text[0],text[1]);
+    });
 }
 
+//This function is called to choose which kind of function to choose based on arguments passed to it
+function somthingThis(choose, query) {
+    //if statements to choose the funtion
+    if (choose === "concert-this"){
+        concertThis(query); 
+    }
+    else if (choose === "spotify-this-song"){
+        spotifyThisSong(query);
+    }
+    else if (choose === "movies-this"){
+        movieThis(query);
+    }
+    else if (choose === "do-what-it-says"){
+        doWhatItSays(query);
+    }
+}
 
 
-
+//;pick out the arguments from the command line then choose what function
+var chooseThis = process.argv[2];
+var queryThis = process.argv[3];
+somethingThis(chooseThis, queryThis);
 
 
 
