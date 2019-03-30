@@ -40,3 +40,6 @@ When Liri searches using movie-this it will use the Axios package to retrieve da
 ### do-what-it-says
 example: `node liri do-what-it-says`  
 When Liri used the do-What-it-says it will use the fs node package to read the 'random.txt" file and carry out the function in the file.
+
+Below is a link to a video of the program working
+https://drive.google.com/file/d/15OBdFp8p4HdcnzxkLKyabnUje8Sj82EN/view
