@@ -32,8 +32,8 @@ var spotify = new Spotify(keys.spotify);
 
 function spotifyThisSong(songName) {
 
-    if (songName === undefined) {
-        searchName = "The Sign ace of base";
+    if (!songName) {
+        songName = "The Sign ace of base";
     }
   
     spotify.search({
@@ -61,7 +61,7 @@ function spotifyThisSong(songName) {
 //movie-this
 function movieThis(movieName) {
 
-    if (movieName === undefined) {
+    if (!movieName) {
         movieName = "Mr. Nobody";
     } 
   
