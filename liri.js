@@ -3,6 +3,7 @@ var keys = require("./keys.js");
 var Spotify =  require("node-spotify-api");
 var axios = require("axios");
 var fs = require("fs");
+var moment = require("moment");
 
 //concert-this
 function concertThis(artistName) {
@@ -11,9 +12,12 @@ function concertThis(artistName) {
     //get the information from bandsintown using axios
     axios.get(artistQueryURL).then(
         function (response) {
+            var newDatetime = response.data[0].datetime;
+            newDatetime = newDatetime.slice(0,10);
+            newDatetime = moment(newDatetime , "YYYY-MM-DD").format('MM DD YYYY');
             console.log("Name of Venue: " + response.data[0].venue.name);
             console.log("Venue Location: " + response.data[0].venue.city + ", " + response.data[0].venue.region + ", " + response.data[0].venue.country );
-            console.log("Date of the event: " + response.data[0].datetime);
+            console.log("Date of the event: " + newDatetime);
             //logs to a file
          //   fs.appendFile('log.txt', '\n' + response.data[0].venue.name);
            // fs.appendFile('log.txt', '\n' + response.data[0].venue.city + ", " + response.data[0].venue.region + ", " + response.data[0].venue.country );
@@ -92,7 +96,7 @@ function movieThis(movieName) {
 function doWhatItSays(){
     fs.readFile('random.txt', "utf8", function(error, data){
         var text = data.split(',');
-        somethingThis( text[0],text[1]);
+        somethingThis( text[0],text.slice(1).join(" "));
     });
 }
 
@@ -119,6 +123,6 @@ function somethingThis(choose, query) {
 
 //pick out the arguments from the command line then choose what function
 var chooseThis = process.argv[2];
-var queryThis = process.argv[3];
+var queryThis = process.argv.slice(3).join(" ");
 somethingThis(chooseThis, queryThis);
 
